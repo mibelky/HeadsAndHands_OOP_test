@@ -1,7 +1,16 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
+    val creatureFactory = ByTypeCreatureFactory()
+    val player = creatureFactory.create(CreatureFactory.CreatureType.Player,"Archer")
+    val monster = creatureFactory.create(CreatureFactory.CreatureType.Monster, "Orc")
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    println("Welcome to the Battle Game!")
+    println("Player: ${player.name} vs. Monster: ${monster.name}")
+
+    val battle = Battle.Builder(player, monster)
+        .enableBattleLog()
+        .addDice(Battle.Dice.Type.D6)
+        .changeOrder()
+        .build()
+
+    battle.startBattle()
 }
